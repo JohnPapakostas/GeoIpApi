@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GeoIpApi.Migrations
 {
     [DbContext(typeof(GeoDbContext))]
-    [Migration("20251104144003_InitialCreate")]
+    [Migration("20251104163325_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

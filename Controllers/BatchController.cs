@@ -89,16 +89,25 @@ namespace GeoIpApi.Controllers
                 })
                 .ToListAsync();
 
-            long? etaSeconds = null;
+            long etaSeconds;
             var remaining = batch.Total - batch.Processed;
-            if (remaining > 0 && batch.AvgMsPerItem > 0)
-                etaSeconds = (batch.AvgMsPerItem * remaining) / 1000;
+            if (batch.Status == "Completed" || remaining == 0)
+            {
+                etaSeconds = 0;
+            }
+            else
+            {
+                // Round up, and show at least 1s while running
+                var etaMs = (long)batch.AvgMsPerItem * remaining;
+                etaSeconds = Math.Max(1, (long)Math.Ceiling(etaMs / 1000.0));
+            }
 
             return Ok(new BatchStatusResponse
             {
                 BatchId = batch.Id,
                 Processed = batch.Processed,
                 Total = batch.Total,
+                Progress = $"{batch.Processed}/{batch.Total}",
                 EtaSeconds = etaSeconds,
                 Status = batch.Status,
                 Items = items

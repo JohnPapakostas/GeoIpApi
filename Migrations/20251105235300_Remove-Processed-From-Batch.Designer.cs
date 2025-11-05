@@ -4,6 +4,7 @@ using GeoIpApi.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GeoIpApi.Migrations
 {
     [DbContext(typeof(GeoDbContext))]
-    partial class GeoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251105235300_Remove-Processed-From-Batch")]
+    partial class RemoveProcessedFromBatch
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -12,9 +12,6 @@ namespace GeoIpApi.Models
         // Number of IPs submitted in the batch.
         public int Total { get; set; }
 
-        // Number of IPs already completed.
-        public int Processed { get; set; }
-
         // Overall status: Queued, InProgress, Completed, Failed.
         public string Status { get; set; } = "Queued";
 

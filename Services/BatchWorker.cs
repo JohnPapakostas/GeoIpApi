@@ -1,5 +1,4 @@
 ﻿using GeoIpApi.Data;
-using GeoIpApi.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace GeoIpApi.Services
@@ -136,32 +135,8 @@ namespace GeoIpApi.Services
                 item.CompletedAt = DateTime.UtcNow;
                 item.DurationInMs = sw.ElapsedMilliseconds;
 
-                // Update the batch stats.
-                var batch = await ctx.Batches.FirstAsync(b => b.Id == batchId, ct);
-                batch.Processed += 1;
-
-                // Update average processing time.
-                batch.AvgMsPerItem = CalculateNewAverage(batch.Processed, batch.AvgMsPerItem, item.DurationInMs);
-
-                // Update batch status.
-                if (batch.Processed == batch.Total)
-                    batch.Status = "Completed";
-                else if (batch.Status == "Queued")
-                    batch.Status = "Running";
-
                 await ctx.SaveChangesAsync(ct);
             }
-        }
-
-        private static long CalculateNewAverage(int processed, long currentAvg, long? newValue)
-        {
-            var n = Math.Max(processed, 1);
-
-            if (currentAvg == 0)
-                return newValue ?? 0;
-
-            var duration = newValue ?? currentAvg;
-            return (long)((currentAvg * (n - 1) + duration) / n);
         }
     }
 }

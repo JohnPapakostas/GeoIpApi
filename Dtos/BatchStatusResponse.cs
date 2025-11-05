@@ -3,7 +3,7 @@
     public class BatchStatusResponse
     {
         public Guid BatchId { get; set; }
-        public string Progress { get; set; } = default!; // "20/100"
+        public string Progress { get; set; } = default!;
         public int Processed { get; set; }
         public int Total { get; set; }
         public long? EtaSeconds { get; set; }
@@ -20,6 +20,7 @@
             public double? Latitude { get; set; }
             public double? Longitude { get; set; }
             public string? Error { get; set; }
+            public long? DurationInMs { get; set; }
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using GeoIpApi.Dtos;
 using System.Text.Json;
-using static System.Net.WebRequestMethods;
 
 namespace GeoIpApi.Services
 {

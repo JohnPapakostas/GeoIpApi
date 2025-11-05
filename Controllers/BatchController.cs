@@ -25,7 +25,6 @@ namespace GeoIpApi.Controllers
             _db = db; _scopeFactory = scopeFactory; _queue = queue; _client = client;
         }
 
-        // (2) POST create batch
         [HttpPost]
         [ProducesResponseType(typeof(BatchCreateResponse), StatusCodes.Status200OK)]
         public async Task<IActionResult> Create([FromBody] BatchCreateRequest req)
@@ -33,7 +32,6 @@ namespace GeoIpApi.Controllers
             if (req?.Ips == null || req.Ips.Count == 0)
                 return BadRequest("Provide at least one IP.");
 
-            // Optional: basic filtering for invalid IPs (keep only valid)
             var validIps = req.Ips
                 .Where(ip => !string.IsNullOrWhiteSpace(ip) && IPAddress.TryParse(ip.Trim(), out _))
                 .Select(ip => ip.Trim())
@@ -56,7 +54,6 @@ namespace GeoIpApi.Controllers
             }
             await _db.SaveChangesAsync();
 
-            // enqueue work (one item → one queued task)
             _ = BatchWorker.EnqueueBatchItemsAsync(_scopeFactory, _queue, _client, batch.Id);
 
             var baseUrl = $"{Request.Scheme}://{Request.Host}";
@@ -65,7 +62,6 @@ namespace GeoIpApi.Controllers
             return Ok(new BatchCreateResponse { BatchId = batch.Id, StatusUrl = statusUrl });
         }
 
-        // (3) GET status
         [HttpGet("{batchId:guid}/status")]
         [ProducesResponseType(typeof(BatchStatusResponse), StatusCodes.Status200OK)]
         public async Task<IActionResult> Status([FromRoute] Guid batchId)
@@ -97,7 +93,6 @@ namespace GeoIpApi.Controllers
             }
             else
             {
-                // Round up, and show at least 1s while running
                 var etaMs = (long)batch.AvgMsPerItem * remaining;
                 etaSeconds = Math.Max(1, (long)Math.Ceiling(etaMs / 1000.0));
             }

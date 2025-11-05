@@ -16,38 +16,6 @@ It supports both **single IP lookup** and **asynchronous batch processing** with
 
 ---
 
-## Architecture Overview
-
-GeoIpApi/
-│
-├── Controllers/
-│ ├── GeoIpController.cs # Handles single IP lookups
-│ └── BatchController.cs # Batch creation and progress endpoints
-│
-├── Services/
-│ ├── IGeoIpClient.cs # IP lookup interface
-│ ├── GeoIpClient.cs # Implements FreeGeoIP API client
-│ ├── IBgTaskQueue.cs # Async queue interface
-│ ├── BgTaskQueue.cs # Queue implementation
-│ └── BatchWorker.cs # Background batch processor
-│
-├── Models/
-│ ├── Batch.cs # Batch entity
-│ └── BatchItem.cs # Individual IP result entity
-│
-├── Data/
-│ └── GeoDbContext.cs # EF Core context (Batches + BatchItems)
-│
-├── Dtos/
-│ ├── GeoIpResponse.cs
-│ ├── GeoIpDto.cs
-│ ├── BatchCreateResponse.cs
-│ ├── BatchCreateRequest.cs
-│ └── BatchStatusResponse.cs
-│
-├── Program.cs # App startup and DI setup
-└── appsettings.json # Configuration (connection string)
-
 ## Technologies Used
 
 | Layer | Technology |

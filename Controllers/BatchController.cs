@@ -53,7 +53,7 @@ namespace GeoIpApi.Controllers
                 return BadRequest("No valid IPs.");
 
             // Create and store the batch and its items.
-            var batch = new Batch { Total = validIps.Count, Status = "Queued" };
+            var batch = new Batch { Total = validIps.Count};
             _db.Batches.Add(batch);
 
             foreach (var ip in validIps)
@@ -123,7 +123,6 @@ namespace GeoIpApi.Controllers
                 Total = batch.Total,
                 Progress = $"{processedCount}/{batch.Total}",
                 EtaSeconds = etaSeconds,
-                Status = batch.Status,
                 Items = items
             });
         }

@@ -14,7 +14,7 @@ namespace GeoIpApi.Helpers
             var avgMsPerItem = processed.Where(i => i.DurationInMs != null).Select(i => i.DurationInMs!.Value).Average();
 
             long etaSeconds = 0;
-            if (batch.Status != "Completed" && remaining > 0)
+            if (remaining > 0)
             {
                 var etaMs = (long)Math.Ceiling(avgMsPerItem) * remaining;
                 etaSeconds = (long)Math.Ceiling(etaMs / 1000.0);

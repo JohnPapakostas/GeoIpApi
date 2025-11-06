@@ -7,7 +7,6 @@
         public int Processed { get; set; }
         public int Total { get; set; }
         public long? EtaSeconds { get; set; }
-        public string Status { get; set; } = default!;
         public List<Item> Items { get; set; } = new();
 
         public class Item

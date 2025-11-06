@@ -18,7 +18,6 @@ namespace GeoIpApi.Data
             modelBuilder.Entity<Batch>(e =>
             {
                 e.HasKey(x => x.Id);
-                e.Property(x => x.Status).HasMaxLength(32);
             });
 
             modelBuilder.Entity<BatchItem>(e =>

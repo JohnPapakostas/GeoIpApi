@@ -6,7 +6,6 @@ using GeoIpApi.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
-using static GeoIpApi.Dtos.BatchStatusResponse;
 
 namespace GeoIpApi.Controllers
 {

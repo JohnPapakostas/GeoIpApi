@@ -106,7 +106,6 @@ namespace GeoIpApi.Services
             // Process the item.
             item.Status = "InProgress";
             item.StartedAt = DateTime.UtcNow;
-            await ctx.SaveChangesAsync(ct);
 
             var sw = System.Diagnostics.Stopwatch.StartNew();
             try
